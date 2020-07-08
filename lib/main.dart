@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primaryColor: Colors.green[600],
           accentColor: Colors.green[600],
-          scaffoldBackgroundColor: Color(0xFFF3F5F7)),
+          scaffoldBackgroundColor: Color(0xFFF3F5F7),
+          bottomSheetTheme: BottomSheetThemeData(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(20))))),
       home: HomeScreen(),
     );
   }

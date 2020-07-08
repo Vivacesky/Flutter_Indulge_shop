@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
-import 'package:food_app/helpers/fade_transition.dart';
 import 'package:food_app/screens/cart.dart';
 import 'package:food_app/widgets/product_list.dart';
 
@@ -54,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen>
               color: Colors.black,
               onPressed: () => Navigator.push(
                 context,
-                FadeRoute(page: CartScreen()),
+                MaterialPageRoute(builder: (context) => CartScreen()),
               ),
               icon: Icon(
                 Icons.shopping_cart,
@@ -62,6 +61,9 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
           ),
+          SizedBox(
+            width: 10.0,
+          )
         ],
       ),
       backgroundColor: Colors.white,
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 10,
           ),
           TabBar(
             controller: tabController,
@@ -112,25 +114,25 @@ class _HomeScreenState extends State<HomeScreen>
               Tab(
                 child: Text(
                   "Lowcarb",
-                  style: TextStyle(fontSize: 20, fontFamily: 'OpenSans'),
+                  style: TextStyle(fontSize: 18.0, fontFamily: 'OpenSans'),
                 ),
               ),
               Tab(
                 child: Text(
                   "Vegan",
-                  style: TextStyle(fontSize: 20, fontFamily: 'OpenSans'),
+                  style: TextStyle(fontSize: 18.0, fontFamily: 'OpenSans'),
                 ),
               ),
               Tab(
                 child: Text(
                   "Aankomen",
-                  style: TextStyle(fontSize: 20, fontFamily: 'OpenSans'),
+                  style: TextStyle(fontSize: 18.0, fontFamily: 'OpenSans'),
                 ),
               ),
               Tab(
                 child: Text(
                   "Afvallen",
-                  style: TextStyle(fontSize: 20, fontFamily: 'OpenSans'),
+                  style: TextStyle(fontSize: 18.0, fontFamily: 'OpenSans'),
                 ),
               ),
             ],
