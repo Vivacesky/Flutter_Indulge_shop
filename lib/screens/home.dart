@@ -12,31 +12,64 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   TabController tabController;
+  FocusNode _searchBarFocusNode;
+  int _amountCart = 0;
 
   @override
   void initState() {
     super.initState();
+    _searchBarFocusNode = FocusNode();
     tabController = TabController(length: 4, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _searchBarFocusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('Drawer Header'),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         elevation: 0.0,
         centerTitle: true,
         title: Image(
           image: AssetImage('assets/indulge-logo.png'),
           height: 30.0,
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            size: 28.0,
-          ),
-          color: Colors.black,
-          onPressed: () {},
         ),
         actions: <Widget>[
           Badge(
@@ -46,15 +79,18 @@ class _HomeScreenState extends State<HomeScreen>
             animationType: BadgeAnimationType.scale,
             showBadge: true,
             badgeContent: Text(
-              '3',
+              _amountCart.toString(),
               style: TextStyle(color: Colors.white),
             ),
             child: IconButton(
               color: Colors.black,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CartScreen()),
-              ),
+              onPressed: () {
+                _searchBarFocusNode.unfocus();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CartScreen()),
+                );
+              },
               icon: Icon(
                 Icons.shopping_cart,
                 size: 28.0,
@@ -76,6 +112,7 @@ class _HomeScreenState extends State<HomeScreen>
                 TextFormField(
                   textInputAction: TextInputAction.search,
                   cursorColor: Colors.green[600],
+                  focusNode: _searchBarFocusNode,
                   decoration: InputDecoration(
                     hintText: "Search",
                     border: OutlineInputBorder(
@@ -89,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen>
                   top: 0,
                   child: GestureDetector(
                     onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
+                      _searchBarFocusNode.unfocus();
                     },
                     child: Icon(
                       Icons.search,
